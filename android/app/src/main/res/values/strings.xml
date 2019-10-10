@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">epaisa</string>
+    <string name="facebook_app_id">1809750732651052</string>
+    <string name="fb_login_protocol_scheme">fb1809750732651052</string>
+    <string name="mapbox_key">pk.eyJ1IjoidGhlcm9taWUiLCJhIjoiY2sxajZmdGkxMXh1aTNubXZzcjd5ZHc2cSJ9.TN46s3ikmMxTgvUPp61pLQ</string>
+    <string name="google_map_key">AIzaSyB2WBBSCy1Le4RK9tDMNt-lQa917J7G0Lg</string>
+</resources>
