@@ -19,12 +19,14 @@ class HomeDetails extends StatefulWidget {
 class _HomeDetailsState extends State<HomeDetails>
     with SingleTickerProviderStateMixin {
   final FocusNode _searchFocusNodeLocation = FocusNode();
-  TextEditingController _location = new TextEditingController();
   Mode _mode = Mode.overlay;
   MapboxMapController mapBoxController;
+
+  //Set initial LAT & LNG
   static double lat = 19.0760;
   static double lng = 72.8777;
 
+  //Creating map controller method
   void _onMapCreated(MapboxMapController controller) {
     mapBoxController = controller;
   }
@@ -43,6 +45,7 @@ class _HomeDetailsState extends State<HomeDetails>
     super.dispose();
   }
 
+  //Get Device Geo Locations
   _getLocation() async {
     loc.LocationData currentLocation;
     loc.Location _locationService = new loc.Location();
@@ -69,11 +72,6 @@ class _HomeDetailsState extends State<HomeDetails>
             initialCameraPosition:
                 CameraPosition(target: LatLng(lat, lng), zoom: 15.0),
           ),
-          // GoogleMap(
-          //     //myLocationEnabled: true,
-          //     mapType: MapType.normal,
-          //     initialCameraPosition: _kGooglePlex,
-          //     onMapCreated: _onMapCreated),
           Positioned(
               top: 50.0,
               right: 15.0,
@@ -101,20 +99,12 @@ class _HomeDetailsState extends State<HomeDetails>
     );
   }
 
-  void onError(PlacesAutocompleteResponse response) {
-    print(response);
-    homeScaffoldKey.currentState.showSnackBar(
-      SnackBar(content: Text(response.errorMessage)),
-    );
-  }
-
   Future<void> _handlePressButton() async {
     // show input autocomplete with selected mode
     // then get the Prediction selected
     Prediction p = await PlacesAutocomplete.show(
       context: context,
       apiKey: kGoogleApiKey,
-      //onError: onError,
       mode: _mode,
     );
 
@@ -134,48 +124,4 @@ class _HomeDetailsState extends State<HomeDetails>
       );
     }
   }
-
-  // Widget _buildUserName(LoginBloc bloc) {
-  //   return StreamBuilder(
-  //     stream: bloc.userName,
-  //     builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-  //       if (snapshot.hasData) {
-  //         return CircleAvatar(
-  //           backgroundColor: Color(0XFF3b5998),
-  //           child: _getShortName(snapshot.data),
-  //           maxRadius: 5,
-  //           minRadius: 5,
-  //         );
-  //       }
-  //       return CircleAvatar(
-  //         backgroundColor: Color(0XFF3b5998),
-  //         child: _getShortName("NA"),
-  //         maxRadius: 5,
-  //         minRadius: 5,
-  //       );
-  //     },
-  //   );
-  // }
-
-  // Widget _getShortName(String name) {
-  //   var initial = "NA";
-  //   if (name != null) {
-  //     if (name != null) {
-  //       var subUsername = name.split(" ");
-  //       if (subUsername.length == 1) {
-  //         String fInitial = subUsername[0].substring(0, 1).toUpperCase();
-  //         initial = fInitial;
-  //       } else {
-  //         String fInitial = subUsername[0].substring(0, 1).toUpperCase();
-  //         String sInitial = subUsername[1].substring(0, 1).toUpperCase();
-  //         subUsername[1].substring(0, 0).toUpperCase();
-  //         initial = fInitial + sInitial;
-  //       }
-  //     }
-  //   }
-  //   return Text(
-  //     initial,
-  //     style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-  //   );
-  // }
 }

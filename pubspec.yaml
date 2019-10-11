@@ -32,6 +32,8 @@ dependencies:
   geolocator: ^3.0.0
   flutter_google_places: ^0.2.0
   location: ^2.0.0
+  firebase_messaging: 5.0.2
+  intl: ^0.15.7
 
 dev_dependencies:
   flutter_test:

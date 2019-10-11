@@ -19,6 +19,7 @@ class LoginBloc {
   // Function
   Function(String) get changeUserName => _userName.sink.add;
 
+  //Calling Facebook API
   sigInFacebook() async {
     fbLogin.logInWithReadPermissions(['email']).then(
       (result) {
@@ -26,7 +27,10 @@ class LoginBloc {
           case FacebookLoginStatus.loggedIn:
             {
               final token = result.accessToken.token;
+
+              //Adding token to streams
               _facebookResult.sink.add(token);
+
               _getUserInfo(token).then(changeUserName);
               break;
             }
@@ -48,6 +52,7 @@ class LoginBloc {
     );
   }
 
+//Removing sink data from streams
   signOutFacebook() async {
     await fbLogin.logOut().then(_facebookResult.sink.add).then(changeUserName);
   }
@@ -58,6 +63,7 @@ class LoginBloc {
   }
 }
 
+//Getting users information after login
 Future<String> _getUserInfo(String accessToken) async {
   var graphResponse = await http.get(
       'https://graph.facebook.com/v2.12/me?fields=picture,name,first_name,last_name,email&access_token=$accessToken');

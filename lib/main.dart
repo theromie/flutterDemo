@@ -29,6 +29,7 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    //Login Provider to use Bloc Pattern
     return LoginProvider(
         child: MaterialApp(
       debugShowCheckedModeBanner: false,

@@ -6,15 +6,17 @@ import 'package:epaisa/UI/home_details.dart';
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //Initialize bloc
     final bloc = LoginProvider.of(context);
     return _buildFbLoginBt(bloc);
   }
 
   Widget _buildFbLoginBt(LoginBloc bloc) {
     return StreamBuilder(
-        stream: bloc.facebookToken,
+        stream: bloc.facebookToken, //Check if Token is present or not
         builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
           if (snapshot.hasData) {
+            //Redirect to Home Details widget if token is present
             return HomeDetails();
           }
           return Scaffold(
@@ -36,6 +38,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 onPressed: !snapshot.hasData
                     ? () async {
+                        //Calling BLoc functions to initi facebook login
                         bloc.sigInFacebook();
                       }
                     : null,
